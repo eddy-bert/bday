@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday 🤍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+  color: white;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease forwards;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+button, .nav-link {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+button:hover, .nav-link:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-3px);
+}
+
+.glass-card {
+  max-width: 700px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.audio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+audio {
+  width: 100%;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="#home">Home</a>
+  <a href="#letter">Letter</a>
+  <a href="#audio">Messages</a>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <h1>Happy Birthday 🤍</h1>
+  <p class="subtitle">Today is all about you.</p>
+  <button onclick="burstConfetti()">Celebrate ✨</button>
+  <br><br>
+  <a href="#letter" class="nav-link">Read Your Letter ↓</a>
+</section>
+
+<!-- LETTER -->
+<section id="letter">
+  <div class="glass-card">
+    <h2>My Dearest You,</h2>
+    <p>
+      Today, I celebrate not just your birthday, but the incredible person you are.
+      Your kindness, your laughter, the way you light up every room —
+      it means more to me than words can ever fully capture.
+    </p>
+    <p>
+      Thank you for being you. Thank you for your warmth,
+      your strength, and the beautiful energy you bring into my life.
+    </p>
+    <p>
+      I hope this year brings you peace, adventure, success,
+      and everything your heart has quietly wished for.
+    </p>
+    <p style="margin-top:30px;">
+      With all my love,<br>
+      — Your Name
+    </p>
+  </div>
+  <br>
+  <a href="#audio" class="nav-link">Listen to Messages ↓</a>
+</section>
+
+<!-- AUDIO -->
+<section id="audio">
+  <div class="glass-card">
+    <h2>Birthday Messages 🎧</h2>
+    <div class="audio-container">
+
+      <!-- Replace src with your own files -->
+      <div>
+        <p>Message 1</p>
+        <audio controls>
+          <source src="audio1.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+      <div>
+        <p>Message 2</p>
+        <audio controls>
+          <source src="audio2.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+      <div>
+        <p>Message 3</p>
+        <audio controls>
+          <source src="audio3.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+function burstConfetti() {
+  for (let i = 0; i < 250; i++) {
+    confetti.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      size: Math.random() * 6 + 2,
+      speedX: (Math.random() - 0.5) * 8,
+      speedY: (Math.random() - 0.5) * 8,
+      color: `hsl(${Math.random() * 360}, 100%, 60%)`
+    });
+  }
+  animate();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  confetti.forEach((c, index) => {
+    c.x += c.speedX;
+    c.y += c.speedY;
+    c.speedY += 0.15;
+
+    ctx.fillStyle = c.color;
+    ctx.fillRect(c.x, c.y, c.size, c.size);
+
+    if (c.y > canvas.height) confetti.splice(index, 1);
+  });
+  requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>
