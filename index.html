@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy Birthday 🤍</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 html { scroll-behavior: smooth; }
@@ -13,7 +13,6 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  color: #2f3e34;
   overflow-x: hidden;
   background: linear-gradient(-45deg, #d8f3dc, #b7e4c7, #cdeccd, #e9fce9);
   background-size: 400% 400%;
@@ -26,6 +25,23 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* 💗 Animated Pink Headings */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ff4fa3, #ff8cc8, #ff4fa3);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  text-shadow: 0 0 20px rgba(255,105,180,0.4);
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
 section {
   min-height: 100vh;
   display: flex;
@@ -35,51 +51,7 @@ section {
   padding: 80px 20px;
   text-align: center;
   position: relative;
-}
-
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-  text-shadow:
-    0 0 10px rgba(255,255,255,0.8),
-    0 0 20px rgba(255,255,255,0.6),
-    0 0 40px rgba(255,255,255,0.4);
-  animation: glowPulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes glowPulse {
-  from { text-shadow: 0 0 10px rgba(255,255,255,0.6); }
-  to { text-shadow: 0 0 25px rgba(255,255,255,1); }
-}
-
-.hero h1 { font-size: 3.5rem; }
-
-.subtitle { opacity: 0.7; margin-bottom: 30px; }
-
-button, .nav-link {
-  padding: 12px 28px;
-  border-radius: 30px;
-  border: none;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(10px);
   color: #2f3e34;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-
-button:hover, .nav-link:hover {
-  background: rgba(255,255,255,0.9);
-  transform: translateY(-3px);
-}
-
-.glass-card {
-  max-width: 700px;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(20px);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 .navbar {
@@ -96,70 +68,82 @@ button:hover, .nav-link:hover {
 }
 
 .navbar a {
-  color: #2f3e34;
+  color: #ff4fa3;
+  font-weight: 500;
   text-decoration: none;
-  font-weight: 400;
-  transition: 0.3s;
 }
 
-.navbar a:hover { opacity: 0.6; }
-
-.audio-container {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 20px;
-}
-
-audio { width: 100%; }
-
-/* Flower petals */
+/* 🌸 Petals */
 .petal {
   position: fixed;
   top: -50px;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #ffcad4);
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ffcad4);
   border-radius: 50% 50% 50% 0;
   transform: rotate(45deg);
   opacity: 0.8;
   animation: fall linear infinite;
+  pointer-events: none;
 }
 
 @keyframes fall {
-  0% {
-    transform: translateY(-10vh) rotate(0deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
   10% { opacity: 0.8; }
-  100% {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Typewriter */
-.typewriter {
-  border-right: 2px solid #2f3e34;
-  white-space: pre-wrap;
+/* 🎞️ GIF Placeholder */
+.gif-container {
+  margin-top: 30px;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  animation: floatGif 4s ease-in-out infinite;
 }
 
+@keyframes floatGif {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.gif-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Glass Card */
+.glass-card {
+  max-width: 700px;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.typewriter {
+  border-right: 2px solid #ff4fa3;
+  white-space: pre-wrap;
+}
+
+/* 🎉 Confetti */
 canvas {
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 999;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
 <audio id="bgMusic" loop>
-  <!-- Replace with your music file -->
   <source src="background-music.mp3" type="audio/mpeg">
 </audio>
 
@@ -167,56 +151,48 @@ canvas {
   <a href="#home">Home</a>
   <a href="#letter">Letter</a>
   <a href="#audio">Messages</a>
+  <a href="#wish">Make a Wish</a>
 </div>
 
 <canvas id="confetti"></canvas>
 
-<section id="home" class="hero">
-  <h1>Happy Birthday 🤍</h1>
-  <p class="subtitle">A little world made just for you.</p>
-  <button onclick="startExperience()">Begin ✨</button>
-  <br><br>
-  <a href="#letter" class="nav-link">Read Your Letter ↓</a>
+<section id="home">
+  <h1>Happy Birthday Sophia! 🤍</h1>
+  <p style="color:#ff4fa3;">A little world made just for you.</p>
+
+  <div class="gif-container">
+    <!-- Replace this file name with your uploaded GIF -->
+    <img src="your-gif.gif" alt="Birthday GIF">
+  </div>
 </section>
 
 <section id="letter">
   <div class="glass-card">
-    <h2>My Dearest You,</h2>
+    <h2>Sophia,</h2>
     <p id="letterText" class="typewriter"></p>
   </div>
-  <br>
-  <a href="#audio" class="nav-link">Listen to Messages ↓</a>
 </section>
 
 <section id="audio">
   <div class="glass-card">
     <h2>Birthday Messages 🎧</h2>
-    <div class="audio-container">
-      <div>
-        <p>Message 1</p>
-        <audio controls>
-          <source src="audio1.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-      <div>
-        <p>Message 2</p>
-        <audio controls>
-          <source src="audio2.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-      <div>
-        <p>Message 3</p>
-        <audio controls>
-          <source src="audio3.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
+    <audio controls><source src="audio1.mp3"></audio><br><br>
+    <audio controls><source src="audio2.mp3"></audio><br><br>
+    <audio controls><source src="audio3.mp3"></audio>
   </div>
 </section>
 
+<section id="wish">
+  <h2>Make a Wish 🕯️</h2>
+  <div style="width:20px;height:100px;background:white;border-radius:10px;position:relative;">
+    <div id="flame" style="width:25px;height:35px;background:radial-gradient(circle,#fff176,#ff9800);border-radius:50%;position:absolute;top:-30px;left:-2.5px;animation:flicker 0.2s infinite alternate;cursor:pointer;"></div>
+  </div>
+  <p>Click the flame to blow it out.</p>
+</section>
+
 <script>
-/* Flower petals generator */
-for (let i = 0; i < 25; i++) {
+/* Petals */
+for (let i = 0; i < 30; i++) {
   const petal = document.createElement("div");
   petal.classList.add("petal");
   petal.style.left = Math.random() * 100 + "vw";
@@ -225,49 +201,66 @@ for (let i = 0; i < 25; i++) {
   document.body.appendChild(petal);
 }
 
-/* Background music fade-in */
-function fadeInAudio(audio) {
-  audio.volume = 0;
-  audio.play();
-  let fade = setInterval(() => {
-    if (audio.volume < 0.6) {
-      audio.volume += 0.02;
-    } else {
-      clearInterval(fade);
-    }
-  }, 200);
-}
-
-function startExperience() {
-  burstConfetti();
+/* Music + Confetti */
+window.addEventListener("load", () => {
   const music = document.getElementById("bgMusic");
-  fadeInAudio(music);
-}
+  music.volume = 0;
+  music.play().catch(()=>{});
+  let fade = setInterval(() => {
+    if (music.volume < 0.6) music.volume += 0.02;
+    else clearInterval(fade);
+  }, 200);
+  burstConfetti();
+});
 
-/* Typewriter */
+/* Typewriter Scroll Trigger */
 const message = `
-Today is a celebration of you — your kindness,
-your laughter, your warmth.
+You finally turned 23! Lowkey a scary year
+I remember when I was your age, well like rn lol.
 
-You make life softer, brighter, and infinitely
-more meaningful just by being in it.
+Honestly, im really glad you've came (pause) into my life
+you've added so much to it and can't wait what else we'll
+be up to! 
+
+I truly wish nothing but the best for you. You're such a smart,
+dedicated and thoughtful person, I have no doubt you'll 
+achieve everything you set your mind to!
 
 I hope this year brings you peace, adventure,
 and every quiet dream you've wished for.
 
-With all my love,
-— Your Name
+Hopefully you enjoy this little gift that originated 
+from that one convo a couple days ago!
+
+With all my care,
+— Eddy
 `;
 
-let i = 0;
+let typed = false;
 function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("letterText").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, 35);
+  let i = 0;
+  function typing() {
+    if (i < message.length) {
+      document.getElementById("letterText").innerHTML += message.charAt(i);
+      i++;
+      setTimeout(typing, 35);
+    }
   }
+  typing();
 }
-window.addEventListener("load", typeWriter);
+
+window.addEventListener("scroll", () => {
+  const letterSection = document.getElementById("letter");
+  if (letterSection.getBoundingClientRect().top < window.innerHeight - 100 && !typed) {
+    typed = true;
+    typeWriter();
+  }
+});
+
+/* Candle Blow */
+document.getElementById("flame").addEventListener("click", function() {
+  this.style.display = "none";
+});
 
 /* Confetti */
 const canvas = document.getElementById("confetti");
@@ -276,30 +269,25 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let confetti = [];
-
 function burstConfetti() {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 400; i++) {
     confetti.push({
-      x: canvas.width / 2,
-      y: canvas.height / 2,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
       size: Math.random() * 6 + 2,
-      speedX: (Math.random() - 0.5) * 8,
-      speedY: (Math.random() - 0.5) * 8,
-      color: `hsl(${Math.random() * 360}, 70%, 75%)`
+      speedY: Math.random() * 3 + 2,
+      color: `hsl(${Math.random() * 360}, 80%, 75%)`
     });
   }
   animate();
 }
-
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  confetti.forEach((c, index) => {
-    c.x += c.speedX;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confetti.forEach((c,index)=>{
     c.y += c.speedY;
-    c.speedY += 0.15;
-    ctx.fillStyle = c.color;
-    ctx.fillRect(c.x, c.y, c.size, c.size);
-    if (c.y > canvas.height) confetti.splice(index, 1);
+    ctx.fillStyle=c.color;
+    ctx.fillRect(c.x,c.y,c.size,c.size);
+    if(c.y>canvas.height) confetti[index].y=0;
   });
   requestAnimationFrame(animate);
 }
