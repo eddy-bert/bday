@@ -8,16 +8,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #2c2c54);
-  color: white;
+  color: #2f3e34;
   overflow-x: hidden;
+  background: linear-gradient(-45deg, #d8f3dc, #b7e4c7, #cdeccd, #e9fce9);
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 section {
@@ -26,32 +32,36 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   text-align: center;
+  position: relative;
 }
 
 h1, h2 {
   font-family: 'Playfair Display', serif;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.8),
+    0 0 20px rgba(255,255,255,0.6),
+    0 0 40px rgba(255,255,255,0.4);
+  animation: glowPulse 4s ease-in-out infinite alternate;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-  animation: fadeIn 2s ease forwards;
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px rgba(255,255,255,0.6); }
+  to { text-shadow: 0 0 25px rgba(255,255,255,1); }
 }
 
-.subtitle {
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
+.hero h1 { font-size: 3.5rem; }
+
+.subtitle { opacity: 0.7; margin-bottom: 30px; }
 
 button, .nav-link {
   padding: 12px 28px;
   border-radius: 30px;
   border: none;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.6);
   backdrop-filter: blur(10px);
-  color: white;
+  color: #2f3e34;
   font-size: 16px;
   cursor: pointer;
   text-decoration: none;
@@ -59,41 +69,17 @@ button, .nav-link {
 }
 
 button:hover, .nav-link:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.9);
   transform: translateY(-3px);
 }
 
 .glass-card {
   max-width: 700px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.5);
   backdrop-filter: blur(20px);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-.audio-container {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 20px;
-}
-
-audio {
-  width: 100%;
-}
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 .navbar {
@@ -104,25 +90,78 @@ canvas {
   justify-content: center;
   gap: 30px;
   padding: 20px;
-  background: rgba(0,0,0,0.2);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(15px);
   z-index: 10;
 }
 
 .navbar a {
-  color: white;
+  color: #2f3e34;
   text-decoration: none;
-  font-weight: 300;
+  font-weight: 400;
   transition: 0.3s;
 }
 
-.navbar a:hover {
-  opacity: 0.6;
+.navbar a:hover { opacity: 0.6; }
+
+.audio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+audio { width: 100%; }
+
+/* Flower petals */
+.petal {
+  position: fixed;
+  top: -50px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #ffcad4);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.8; }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Typewriter */
+.typewriter {
+  border-right: 2px solid #2f3e34;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 </style>
 </head>
 
 <body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <!-- Replace with your music file -->
+  <source src="background-music.mp3" type="audio/mpeg">
+</audio>
 
 <div class="navbar">
   <a href="#home">Home</a>
@@ -132,91 +171,121 @@ canvas {
 
 <canvas id="confetti"></canvas>
 
-<!-- HERO -->
 <section id="home" class="hero">
   <h1>Happy Birthday 🤍</h1>
-  <p class="subtitle">Today is all about you.</p>
-  <button onclick="burstConfetti()">Celebrate ✨</button>
+  <p class="subtitle">A little world made just for you.</p>
+  <button onclick="startExperience()">Begin ✨</button>
   <br><br>
   <a href="#letter" class="nav-link">Read Your Letter ↓</a>
 </section>
 
-<!-- LETTER -->
 <section id="letter">
   <div class="glass-card">
     <h2>My Dearest You,</h2>
-    <p>
-      Today, I celebrate not just your birthday, but the incredible person you are.
-      Your kindness, your laughter, the way you light up every room —
-      it means more to me than words can ever fully capture.
-    </p>
-    <p>
-      Thank you for being you. Thank you for your warmth,
-      your strength, and the beautiful energy you bring into my life.
-    </p>
-    <p>
-      I hope this year brings you peace, adventure, success,
-      and everything your heart has quietly wished for.
-    </p>
-    <p style="margin-top:30px;">
-      With all my love,<br>
-      — Your Name
-    </p>
+    <p id="letterText" class="typewriter"></p>
   </div>
   <br>
   <a href="#audio" class="nav-link">Listen to Messages ↓</a>
 </section>
 
-<!-- AUDIO -->
 <section id="audio">
   <div class="glass-card">
     <h2>Birthday Messages 🎧</h2>
     <div class="audio-container">
-
-      <!-- Replace src with your own files -->
       <div>
         <p>Message 1</p>
         <audio controls>
           <source src="audio1.mp3" type="audio/mpeg">
         </audio>
       </div>
-
       <div>
         <p>Message 2</p>
         <audio controls>
           <source src="audio2.mp3" type="audio/mpeg">
         </audio>
       </div>
-
       <div>
         <p>Message 3</p>
         <audio controls>
           <source src="audio3.mp3" type="audio/mpeg">
         </audio>
       </div>
-
     </div>
   </div>
 </section>
 
 <script>
+/* Flower petals generator */
+for (let i = 0; i < 25; i++) {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = (8 + Math.random() * 10) + "s";
+  petal.style.animationDelay = Math.random() * 10 + "s";
+  document.body.appendChild(petal);
+}
+
+/* Background music fade-in */
+function fadeInAudio(audio) {
+  audio.volume = 0;
+  audio.play();
+  let fade = setInterval(() => {
+    if (audio.volume < 0.6) {
+      audio.volume += 0.02;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+}
+
+function startExperience() {
+  burstConfetti();
+  const music = document.getElementById("bgMusic");
+  fadeInAudio(music);
+}
+
+/* Typewriter */
+const message = `
+Today is a celebration of you — your kindness,
+your laughter, your warmth.
+
+You make life softer, brighter, and infinitely
+more meaningful just by being in it.
+
+I hope this year brings you peace, adventure,
+and every quiet dream you've wished for.
+
+With all my love,
+— Your Name
+`;
+
+let i = 0;
+function typeWriter() {
+  if (i < message.length) {
+    document.getElementById("letterText").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, 35);
+  }
+}
+window.addEventListener("load", typeWriter);
+
+/* Confetti */
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let confetti = [];
 
 function burstConfetti() {
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 200; i++) {
     confetti.push({
       x: canvas.width / 2,
       y: canvas.height / 2,
       size: Math.random() * 6 + 2,
       speedX: (Math.random() - 0.5) * 8,
       speedY: (Math.random() - 0.5) * 8,
-      color: `hsl(${Math.random() * 360}, 100%, 60%)`
+      color: `hsl(${Math.random() * 360}, 70%, 75%)`
     });
   }
   animate();
@@ -228,10 +297,8 @@ function animate() {
     c.x += c.speedX;
     c.y += c.speedY;
     c.speedY += 0.15;
-
     ctx.fillStyle = c.color;
     ctx.fillRect(c.x, c.y, c.size, c.size);
-
     if (c.y > canvas.height) confetti.splice(index, 1);
   });
   requestAnimationFrame(animate);
